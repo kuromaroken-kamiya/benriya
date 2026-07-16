@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>株式会社ウェブグロース ｜ ハイファイ デザインカンプ</title>
+<link rel="stylesheet" href="ds-styles.css">
+<style>
+/* ── page-level overrides on top of Industry DS tokens ── */
+:root {
+  --edge: clamp(20px, 5vw, 72px);
+  --leading: 24px;
+  --half: 12px;
+}
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--color-bg); }
+
+/* ── doc chrome (the comp document wrapper) ── */
+.docbar { max-width: 1200px; margin: 0 auto; padding: 48px var(--edge) 24px; }
+.doc-eyebrow { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 12px; }
+.doc-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 38px; letter-spacing: -.01em; margin: 0 0 14px; }
+.doc-lead { max-width: 760px; font-size: 15px; line-height: 1.75; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0 0 8px; }
+.doc-meta-row { font-family: var(--font-heading); font-size: 12px; letter-spacing: .06em; color: var(--color-neutral-600); margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--color-divider); }
+.doc-toc { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+.doc-toc a { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 12px; letter-spacing: .03em; padding: 8px 12px; background: transparent; border: 1px solid var(--color-divider); color: var(--color-text); text-decoration: none; }
+.doc-toc a:hover { border-color: var(--color-accent); color: var(--color-accent-700); }
+.legend-row { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 16px; font-size: 12px; color: var(--color-neutral-700); }
+.legend-row > span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ── badge chips ── */
+.badge { display: inline-flex; align-items: center; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 10.5px; letter-spacing: .05em; padding: 4px 8px; white-space: nowrap; }
+.badge-dec { background: var(--color-text); color: var(--color-bg); }
+.badge-new { background: var(--color-accent); color: var(--color-bg); }
+.badge-seo { background: var(--color-accent-100); color: var(--color-accent-800); border: 1px solid var(--color-accent-400); }
+.badge-mig { background: var(--color-neutral-200); color: var(--color-neutral-800); border: 1px solid var(--color-neutral-400); }
+.badge-chk { background: transparent; color: var(--color-neutral-700); border: 1px dashed var(--color-neutral-500); }
+.badge-del { background: #a05959; color: #fff; }
+
+/* ── page section wrapper ── */
+.pagewrap { max-width: 1200px; margin: 0 auto; padding: 0 var(--edge) 80px; }
+.pagelabel { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 0 0 14px; scroll-margin-top: 16px; }
+.pagelabel .no { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 12px; background: var(--color-text); color: var(--color-bg); padding: 5px 9px; letter-spacing: .05em; }
+.pagelabel .kick { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-accent-700); }
+.pagelabel h2 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; margin: 0; }
+.pagelabel .url { margin-left: auto; font: 500 11.5px/1.4 ui-monospace, Menlo, monospace; color: var(--color-neutral-600); }
+.pagenote { max-width: 820px; font-size: 14px; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin: 0 0 14px; line-height: 1.75; }
+.badgerow { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 20px; }
+
+/* ── frame chrome (browser frame around each comp page) ── */
+.frame { border: 1px solid var(--color-divider); overflow: hidden; background: var(--color-bg); }
+.chrome { height: 34px; background: var(--color-neutral-100); border-bottom: 1px solid var(--color-divider); display: flex; align-items: center; gap: 7px; padding: 0 14px; }
+.chrome .cdot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-neutral-300); flex: none; }
+.chrome .urlbar { margin-left: 10px; height: 18px; flex: 1; max-width: 380px; background: var(--color-bg); border: 1px solid var(--color-divider); border-radius: 9px; display: flex; align-items: center; padding: 0 10px; font: 500 10.5px/1 ui-monospace, Menlo, monospace; color: var(--color-neutral-500); }
+
+/* ── stage: PC + SP + notes side-by-side ── */
+.stage { display: flex; gap: 36px; align-items: flex-start; flex-wrap: wrap; }
+.pc-frame { width: 820px; flex: none; }
+.sp-frame { width: 320px; flex: none; }
+.notes-col { flex: 1; min-width: 260px; max-width: 340px; display: flex; flex-direction: column; gap: 10px; }
+.notes-cap { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-neutral-600); margin: 0 0 4px; }
+.anno { position: relative; border: 1px solid var(--color-divider); background: transparent; padding: 12px 14px 12px 40px; font-size: 12.5px; line-height: 1.6; color: var(--color-neutral-800); }
+.anno .pin { position: absolute; top: 12px; left: 10px; width: 20px; height: 20px; border-radius: 50%; background: var(--color-accent); color: #fff; font: 700 10.5px/1 var(--font-body); display: flex; align-items: center; justify-content: center; flex: none; }
+.anno b { display: block; font-family: var(--font-heading); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+.anno.dec { border-left: 3px solid var(--color-text); }
+.anno.dec b { color: var(--color-text); }
+.anno.dec .pin { background: var(--color-text); }
+.anno.seo { border-left: 3px solid var(--color-accent); }
+.anno.seo b { color: var(--color-accent-700); }
+.anno.chk { border-left: 3px dashed var(--color-neutral-500); }
+.anno.chk b { color: var(--color-neutral-600); }
+.anno.chk .pin { background: var(--color-neutral-500); }
+.anno.tip { border-left: 3px solid var(--color-accent-300); }
+.anno.tip b { color: var(--color-accent-700); }
+.anno.tip .pin { background: var(--color-accent-400); }
+
+/* ── site navigation (inside frame) ── */
+.site-nav { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-divider); }
+.site-nav .nav-logo { height: 28px; }
+.site-nav .nav-links { display: flex; gap: 16px; margin-left: 8px; }
+.site-nav .nav-links a { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 13px; color: var(--color-text); text-decoration: none; letter-spacing: .02em; }
+.site-nav .nav-links a:hover { color: var(--color-accent-700); }
+.site-nav .nav-cta { margin-left: auto; }
+.burger { margin-left: auto; display: flex; flex-direction: column; gap: 3.5px; }
+.burger i { width: 20px; height: 2px; background: var(--color-neutral-500); display: block; }
+
+/* ── hero ── */
+.hero-block { position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+.hero-bg::after { content: ""; position: absolute; inset: 0; }
+.hero-block.duotone-hero .hero-bg::after {
+  background: linear-gradient(100deg, color-mix(in srgb, var(--color-accent-900) 96%, transparent) 10%, color-mix(in srgb, var(--color-accent-900) 60%, transparent) 55%, color-mix(in srgb, var(--color-accent-900) 30%, transparent));
+}
+.hero-inner { position: relative; z-index: 1; padding: 44px 32px; color: var(--color-bg); }
+.hero-inner .kicker-line { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent-300); margin: 0 0 10px; display: block; }
+.hero-inner h2 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 30px; line-height: 1.15; margin: 0 0 12px; color: var(--color-bg); }
+.hero-inner p { font-size: 14px; line-height: 1.7; color: var(--color-neutral-300); margin: 0 0 18px; max-width: 460px; }
+.btnrow { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ── section blocks inside frames ── */
+.sect-block { padding: 22px 28px; }
+.sect-block + .sect-block { border-top: 1px solid var(--color-divider); }
+.sect-block.accent-bg { background: var(--color-accent-100); }
+.sect-block.dark-bg { background: var(--color-accent-900); color: var(--color-bg); }
+.sect-label { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-neutral-500); margin: 0 0 12px; display: block; }
+.sect-kicker { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 8px; display: block; }
+.sect-h3 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 20px; margin: 0 0 10px; line-height: 1.2; }
+.sect-text { font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent); line-height: 1.7; margin: 0; }
+.sect-muted { font-size: 11.5px; color: var(--color-neutral-500); margin: 6px 0 0; }
+.pin-float { position: relative; }
+.pin-float > .pin { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%; background: var(--color-accent); color: #fff; font: 700 11px/1 var(--font-body); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); z-index: 2; }
+
+/* ── grid helpers ── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.g5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.flex-row { display: flex; gap: 12px; align-items: center; }
+.stack { display: flex; flex-direction: column; gap: 8px; }
+
+/* ── service card ── */
+.svc-card { border: 1px solid var(--color-divider); display: flex; flex-direction: column; gap: 6px; overflow: hidden; background: transparent; }
+.svc-card .svc-img { height: 80px; overflow: hidden; position: relative; }
+.svc-card .svc-img img { width: 100%; height: 100%; object-fit: cover; }
+.svc-card .svc-img.duotone::after { content: ""; position: absolute; inset: 0; background: var(--color-accent); mix-blend-mode: color; pointer-events: none; }
+.svc-card .svc-body { padding: 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.svc-card .svc-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 14px; }
+.svc-card .svc-desc { font-size: 11.5px; color: var(--color-neutral-600); }
+.svc-card .svc-cta { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 11px; color: var(--color-accent-700); margin-top: auto; }
+.svc-card.highlight { border-color: var(--color-accent); }
+.svc-card .blueprint-inner { position: relative; }
+.svc-card .blueprint-inner > .corner { position: absolute; width: 11px; height: 11px; color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+.svc-card .blueprint-inner > .corner::before, .svc-card .blueprint-inner > .corner::after { content: ""; position: absolute; background: currentColor; }
+.svc-card .blueprint-inner > .corner::before { left: 5px; top: 0; width: 1px; height: 100%; }
+.svc-card .blueprint-inner > .corner::after { top: 5px; left: 0; width: 100%; height: 1px; }
+.svc-card .blueprint-inner > .corner.tl { top: -6px; left: -6px; }
+.svc-card .blueprint-inner > .corner.tr { top: -6px; right: -6px; }
+.svc-card .blueprint-inner > .corner.bl { bottom: -6px; left: -6px; }
+.svc-card .blueprint-inner > .corner.br { bottom: -6px; right: -6px; }
+
+/* ── mini buttons / CTA inside frames ── */
+.btn-wg { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 16px; background: var(--color-accent); color: var(--color-bg); font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 12px; letter-spacing: .03em; text-decoration: none; }
+.btn-wg.ghost { background: transparent; color: var(--color-accent-700); border: 1px solid var(--color-accent); }
+.btn-wg.ext::after { content: " ↗"; font-size: 11px; }
+.btn-wg.lg { height: 40px; padding: 0 24px; font-size: 14px; }
+
+/* ── info table ── */
+.info-tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.info-tbl tr { border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); }
+.info-tbl th { width: 100px; text-align: left; padding: 8px 10px; color: var(--color-neutral-600); font-weight: 600; font-size: 11.5px; vertical-align: top; }
+.info-tbl td { padding: 8px 10px; vertical-align: top; }
+
+/* ── placeholder block (hatched) ── */
+.ph { background: repeating-linear-gradient(45deg, var(--color-neutral-200) 0 8px, var(--color-bg) 8px 16px); border: 1px solid var(--color-divider); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 11px; letter-spacing: .1em; color: var(--color-neutral-600); }
+
+/* ── text bars (wireframe text blocks) ── */
+.hb { height: 20px; background: var(--color-accent-200); }
+.hb.sm { height: 14px; }
+.tb { height: 8px; background: var(--color-neutral-200); border-radius: 2px; }
+
+/* ── step row ── */
+.step-row { display: flex; gap: 2px; }
+.step-item { flex: 1; padding: 14px 10px; border: 1px solid var(--color-divider); text-align: center; background: transparent; position: relative; }
+.step-num { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px; color: var(--color-neutral-300); display: block; }
+.step-item:not(:last-child)::after { content: ""; position: absolute; right: -9px; top: 50%; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid var(--color-divider); z-index: 1; }
+
+/* ── post card ── */
+.post-card { border: 1px solid var(--color-divider); overflow: hidden; background: transparent; }
+.post-card .post-img { height: 90px; overflow: hidden; position: relative; }
+.post-card .post-img img { width: 100%; height: 100%; object-fit: cover; }
+.post-card .post-body { padding: 12px; }
+.post-cat { display: inline-block; font-family: var(--font-heading); font-size: 10px; letter-spacing: .04em; padding: 3px 7px; background: var(--color-neutral-100); border: 1px solid var(--color-divider); color: var(--color-neutral-700); margin-bottom: 6px; }
+.post-date { font: 500 10.5px/1 var(--font-body); color: var(--color-neutral-500); margin-bottom: 5px; }
+.post-ttl { font-size: 13px; font-weight: 600; line-height: 1.55; }
+
+/* ── footer inside frame ── */
+.site-footer { background: var(--color-accent-900); color: var(--color-accent-300); padding: 28px; }
+.fgrid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 20px; font-size: 11.5px; }
+.fgrid h6 { color: var(--color-bg); font-family: var(--font-heading); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+.fgrid a { color: var(--color-accent-300); text-decoration: none; }
+.fgrid a:hover { color: var(--color-bg); }
+.fgrid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.fbottom { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--color-accent-800); display: flex; justify-content: space-between; font-size: 10.5px; color: var(--color-accent-500); flex-wrap: wrap; gap: 8px; }
+
+/* ── sitemap boxes ── */
+.smap-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 14px 18px; background: var(--color-text); color: var(--color-bg); font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 13px; letter-spacing: .03em; }
+.smap-top .sep { opacity: .4; }
+.smap-grid { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; padding: 18px; }
+.smap-col { flex: 1; min-width: 160px; border: 1px solid var(--color-divider); }
+.smap-col-h { background: var(--color-neutral-100); border-bottom: 1px solid var(--color-divider); padding: 10px 12px; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 14px; display: flex; align-items: center; justify-content: space-between; }
+.smap-col-h .smeta { font: 600 10px var(--font-body); color: var(--color-neutral-500); }
+.smap-col-b { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.leaf { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--color-neutral-800); padding: 6px 8px; border: 1px solid var(--color-divider); line-height: 1.35; }
+.leaf.hub { border-color: var(--color-accent); background: var(--color-accent-100); color: var(--color-accent-800); font-weight: 600; }
+.leaf.sub { margin-left: 12px; border-left: 2px solid var(--color-accent-300); }
+.leaf .lk { margin-left: auto; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 9px; letter-spacing: .04em; padding: 3px 6px; color: #fff; flex: none; }
+.lk.dec { background: var(--color-text); }
+.lk.new { background: var(--color-accent); }
+.lk.seo { background: var(--color-accent-600); }
+.lk.mig { background: var(--color-neutral-400); }
+.lk.del { background: #a05959; }
+.leaf.struck { color: var(--color-neutral-500); text-decoration: line-through; border-style: dashed; }
+.leaf.del-leaf { border-color: #d4a8a8; color: #a05959; }
+
+/* ── SP mobile-specific ── */
+.sp-frame .notch { height: 22px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--color-divider); background: var(--color-neutral-100); }
+.sp-frame .notch::before { content: ""; width: 52px; height: 6px; border-radius: 6px; background: var(--color-neutral-300); }
+.sp-frame .site-nav .nav-links { display: none; }
+.sp-frame .site-nav .nav-cta { display: none; }
+.sp-frame .sect-block { padding: 14px 16px; }
+.sp-frame .hero-inner { padding: 24px 16px; }
+.sp-frame .hero-inner h2 { font-size: 20px; }
+.sp-frame .g2, .sp-frame .g3, .sp-frame .g4, .sp-frame .g5 { grid-template-columns: 1fr; }
+.sp-frame .step-row { flex-direction: column; }
+.sp-frame .step-item::after { display: none; }
+.sp-frame .fgrid { grid-template-columns: 1fr; gap: 14px; }
+
+/* ── compare table ── */
+.cmp-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.cmp-tbl th, .cmp-tbl td { border: 1px solid var(--color-divider); padding: 8px 10px; text-align: left; vertical-align: top; }
+.cmp-tbl thead th { background: var(--color-text); color: var(--color-bg); font-family: var(--font-heading); font-size: 11px; letter-spacing: .04em; }
+.cmp-tbl tbody th { background: var(--color-neutral-100); font-family: var(--font-heading); font-size: 11px; width: 80px; color: var(--color-neutral-700); }
+
+/* ── community cards ── */
+.comm-card { border: 1px solid var(--color-divider); padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+.comm-kicker { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent-700); }
+
+/* ── breadcrumb ── */
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-neutral-500); flex-wrap: wrap; }
+.breadcrumb a { color: var(--color-neutral-600); text-decoration: none; }
+
+/* ── dev cap (PC / SP label) ── */
+.dev-cap { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--color-neutral-600); margin: 0 0 10px; }
+
+@media (max-width: 1200px) {
+  .stage { flex-direction: column; }
+  .pc-frame { width: 100%; }
+  .sp-frame { width: 100%; max-width: 375px; }
+  .notes-col { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     DOCUMENT HEADER
+     ════════════════════════════════════════════════════════ -->
+<div class="docbar">
+  <p class="doc-eyebrow">株式会社ウェブグロース ｜ Webサイトリニューアル</p>
+  <h1 class="doc-title">サイト構造図 & 主要ページ ハイファイ デザインカンプ</h1>
+  <p class="doc-lead">PROJECT_BRIEF / sitemap / content-migration をもとに、Industry デザインシステムで展開したハイファイ デザインカンプです。各ページはPC・スマホの骨格を並べ、ブロックごとに制作メモと注記を付けています。ダミーコピーは構成確認用で、原稿確定前の仮テキストです。</p>
+  <p class="doc-lead">デザインシステム: <b>Industry</b> — Barlow Condensed / Barlow、スチールブルーアクセント (#5980a6)、ワイヤーフレームカード（角マーク付き）、デュオトーン写真処理</p>
+
+  <div class="legend-row">
+    <span><span class="badge badge-dec">クライアント決定</span></span>
+    <span><span class="badge badge-new">新規</span></span>
+    <span><span class="badge badge-seo">SEO保護</span></span>
+    <span><span class="badge badge-mig">統合・移行</span></span>
+    <span><span class="badge badge-chk">要確認</span></span>
+  </div>
+
+  <div class="doc-toc">
+    <a href="#sitemap">00 サイト構造図</a>
+    <a href="#top">01 トップ</a>
+    <a href="#about">02 会社概要</a>
+    <a href="#hub">03 便利屋事業ハブ</a>
+    <a href="#consulting">04 集客代行</a>
+    <a href="#opening">05 開業支援</a>
+    <a href="#job">06 体験・アルバイト</a>
+    <a href="#franchise">07 フランチャイズ</a>
+    <a href="#noren">08 開業・暖簾分け</a>
+    <a href="#web">09 Web集客事業</a>
+    <a href="#media">10 メディア・コミュニティ</a>
+    <a href="#news">11 新着情報 一覧</a>
+    <a href="#post">12 新着情報 詳細</a>
+    <a href="#contact">13 お問い合わせ導線</a>
+  </div>
+  <p class="doc-meta-row">Rev. 2026-07-16　｜　ハイファイ確認フェーズ　｜　CMS: WordPress　｜　原稿・写真は差し替え前提の仮素材</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     00 SITEMAP
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="sitemap">
+  <div class="pagelabel"><span class="no">00</span><span class="kick">Information Architecture</span><h2>サイト構造図</h2><span class="url">grand nav: 6項目</span></div>
+  <p class="pagenote">トップページで会社全体像を見せ、「便利屋事業」と「Web集客事業」を同列の二本柱として提示。詳細サービス・信頼情報・運営活動を分離する。</p>
+  <div class="frame">
+    <div class="smap-top">
+      <span>ホーム</span><span class="sep">／</span>
+      <span>私たちについて</span><span class="sep">・</span>
+      <span>便利屋事業</span><span class="sep">・</span>
+      <span>Web集客事業</span><span class="sep">・</span>
+      <span>メディア・コミュニティ</span><span class="sep">・</span>
+      <span>新着情報</span><span class="sep">・</span>
+      <span style="color:var(--color-accent-200)">お問い合わせ ↗</span>
+    </div>
+    <div class="smap-grid">
+      <div class="smap-col"><div class="smap-col-h">私たちについて</div><div class="smap-col-b">
+        <div class="leaf">会社概要<span class="lk dec">決定</span></div>
+        <div class="leaf sub">会社情報表を冒頭に</div>
+        <div class="leaf">プライバシーポリシー</div>
+      </div></div>
+      <div class="smap-col"><div class="smap-col-h">便利屋事業</div><div class="smap-col-b">
+        <div class="leaf hub">便利屋事業トップ（ハブ）<span class="lk dec">決定</span></div>
+        <div class="leaf sub">便利屋集客代行<span class="lk mig">改稿</span></div>
+        <div class="leaf sub">開業支援・経営相談</div>
+        <div class="leaf sub">便利屋体験・アルバイト<span class="lk seo">SEO</span></div>
+        <div class="leaf sub">便利屋フランチャイズ</div>
+        <div class="leaf sub">開業・暖簾分け<span class="lk new">新規</span></div>
+      </div></div>
+      <div class="smap-col"><div class="smap-col-h">Web集客事業</div><div class="smap-col-b">
+        <div class="leaf">成果報酬集客事業<span class="lk mig">統合</span></div>
+        <div class="leaf struck sub">旧: 成果報酬型ウェブコンサル</div>
+        <div class="leaf struck sub">旧: HP新規作成</div>
+        <div class="leaf del-leaf sub">書道教室HP作成<span class="lk del">削除</span></div>
+      </div></div>
+      <div class="smap-col"><div class="smap-col-h">メディア・コミュニティ</div><div class="smap-col-b">
+        <div class="leaf">メディア掲載</div>
+        <div class="leaf">運営メディア（別枠）</div>
+        <div class="leaf sub">便利屋フランチャイズコム</div>
+        <div class="leaf">運営コミュニティ<span class="lk dec">決定</span></div>
+        <div class="leaf sub">6カテゴリで分類</div>
+      </div></div>
+      <div class="smap-col"><div class="smap-col-h"><span>新着情報</span><span class="smeta">WP投稿</span></div><div class="smap-col-b">
+        <div class="leaf">投稿一覧</div>
+        <div class="leaf">投稿詳細</div>
+        <div class="leaf sub" style="color:var(--color-neutral-500)">カテゴリ: お知らせ／メディア掲載／事業情報／コラム</div>
+      </div></div>
+      <div class="smap-col"><div class="smap-col-h">お問い合わせ</div><div class="smap-col-b">
+        <div class="leaf">外部フォーム（Formzu）↗<span class="lk dec">決定</span></div>
+        <div class="leaf sub" style="color:var(--color-neutral-500)">外部遷移を明記・別タブ</div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     01 TOP PAGE
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="top">
+  <div class="pagelabel"><span class="no">01</span><span class="kick">Home</span><h2>トップページ</h2><span class="url">/（再構成）</span></div>
+  <div class="badgerow"><span class="badge badge-dec">二事業を同列に</span><span class="badge badge-mig">現行トップを再構成</span></div>
+  <div class="stage">
+    <!-- PC -->
+    <div class="pc-frame">
+      <p class="dev-cap">PC ／ 1280px</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp</span></div>
+        <div class="site-nav">
+          <img class="nav-logo" src="images/logo.png" alt="WEB GROWTH">
+          <div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div>
+          <a class="btn btn-primary nav-cta" href="#">お問い合わせ</a>
+        </div>
+
+        <!-- FV -->
+        <div class="hero-block duotone-hero pin-float" style="min-height:240px">
+          <span class="pin">1</span>
+          <div class="hero-bg"><img src="images/handyman.jpg" alt=""></div>
+          <div class="hero-inner">
+            <span class="kicker-line">現場を知る、実直な事業成長パートナー</span>
+            <h2>便利屋事業とWeb集客事業の<br>二本柱で、地域の成長を支える。</h2>
+            <p>自社で便利屋を運営し、そこで得た現場経験をもとに集客支援まで行う。地域の小さな事業の成長を、実務から伴走します。</p>
+            <div class="btnrow">
+              <a class="btn btn-primary" href="#">サービスを見る</a>
+              <a class="btn btn-ghost" href="#" style="color:var(--color-bg)">お問い合わせ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 事業紹介 -->
+        <div class="sect-block pin-float">
+          <span class="pin">2</span>
+          <span class="sect-label">事業紹介</span>
+          <div class="g2">
+            <div class="svc-card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="svc-img duotone"><img src="images/handyman_bisiness_mv.jpg" alt=""></div>
+              <div class="svc-body"><span class="svc-title">便利屋事業</span><span class="svc-desc">集客・開業・独立まで現場を伴走。</span><span class="svc-cta">詳しく →</span></div>
+            </div>
+            <div class="svc-card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <div class="svc-img duotone"><img src="images/web.jpg" alt=""></div>
+              <div class="svc-body"><span class="svc-title">Web集客事業</span><span class="svc-desc">地域事業者の成果報酬型集客支援。</span><span class="svc-cta">詳しく →</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 選ばれる理由 -->
+        <div class="sect-block">
+          <span class="sect-label">選ばれる理由</span>
+          <div class="hb sm" style="width:40%;margin-bottom:14px"></div>
+          <div class="g3">
+            <div style="display:flex;flex-direction:column;gap:6px"><div class="ph" style="height:50px">01</div><div class="tb" style="width:80%"></div><div class="tb" style="width:60%"></div></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><div class="ph" style="height:50px">02</div><div class="tb" style="width:80%"></div><div class="tb" style="width:55%"></div></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><div class="ph" style="height:50px">03</div><div class="tb" style="width:80%"></div><div class="tb" style="width:65%"></div></div>
+          </div>
+          <p class="sect-muted">自社運営／現場経験／成果報酬／コミュニティ規模 など</p>
+        </div>
+
+        <!-- 目的別導線 -->
+        <div class="sect-block accent-bg pin-float">
+          <span class="pin">3</span>
+          <span class="sect-label">目的別サービス導線</span>
+          <div class="hb sm" style="width:46%;background:var(--color-accent-300);margin-bottom:14px"></div>
+          <div class="g3">
+            <div class="card" style="background:var(--color-bg);padding:var(--space-3)"><div class="sect-kicker">便利屋を始めたい</div><span class="sect-text">開業したい</span></div>
+            <div class="card" style="background:var(--color-bg);padding:var(--space-3)"><div class="sect-kicker">集客をプロに任せたい</div><span class="sect-text">集客を任せたい</span></div>
+            <div class="card" style="background:var(--color-bg);padding:var(--space-3)"><div class="sect-kicker">まず体験してみたい</div><span class="sect-text">働いてみたい</span></div>
+          </div>
+        </div>
+
+        <!-- 代表メッセージ -->
+        <div class="sect-block">
+          <span class="sect-label">代表メッセージ・理念</span>
+          <div class="stack"><div class="hb sm" style="width:34%"></div><div class="tb" style="width:100%"></div><div class="tb" style="width:96%"></div><div class="tb" style="width:88%"></div><div class="tb" style="width:70%"></div></div>
+        </div>
+
+        <!-- メディア -->
+        <div class="sect-block">
+          <span class="sect-label">メディア・コミュニティ</span>
+          <div class="g3"><div class="ph" style="height:60px">掲載ロゴ</div><div class="ph" style="height:60px">運営メディア</div><div class="ph" style="height:60px">コミュニティ</div></div>
+        </div>
+
+        <!-- 新着情報 -->
+        <div class="sect-block pin-float">
+          <span class="pin">4</span>
+          <span class="sect-label">新着情報</span>
+          <div class="stack">
+            <div class="flex-row"><span class="badge badge-mig" style="border-style:solid">お知らせ</span><div class="tb" style="flex:1"></div></div>
+            <div class="flex-row"><span class="badge badge-mig" style="border-style:solid">コラム</span><div class="tb" style="flex:1;width:80%"></div></div>
+            <div class="flex-row"><span class="badge badge-mig" style="border-style:solid">事業情報</span><div class="tb" style="flex:1;width:88%"></div></div>
+          </div>
+          <p class="sect-muted">WordPress投稿から自動表示 →「新着情報」一覧へ</p>
+        </div>
+
+        <!-- 会社情報 -->
+        <div class="sect-block">
+          <span class="sect-label">会社情報の要約</span>
+          <div class="g2"><div class="stack"><div class="tb" style="width:60%"></div><div class="tb" style="width:80%"></div></div><div class="ph" style="height:70px">地図・アクセス</div></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="sect-block accent-bg pin-float" style="text-align:center;padding:26px 28px">
+          <span class="pin">5</span>
+          <div class="hb sm" style="width:50%;margin:0 auto 14px;background:var(--color-accent-300)"></div>
+          <a class="btn-wg ext lg" href="#">お問い合わせ（外部フォーム）</a>
+        </div>
+
+        <!-- フッター -->
+        <div class="site-footer">
+          <div class="fgrid">
+            <div><img src="images/logo.png" alt="WEB GROWTH" style="height:22px;filter:brightness(0) invert(1);margin-bottom:10px"><p style="font-size:11px;color:var(--color-accent-400);line-height:1.7">現場を知る、実直な事業成長パートナー。</p></div>
+            <div><h6>私たちについて</h6><ul><li><a href="#">会社概要</a></li><li><a href="#">プライバシーポリシー</a></li></ul></div>
+            <div><h6>便利屋事業</h6><ul><li><a href="#">集客代行</a></li><li><a href="#">開業支援</a></li><li><a href="#">体験・バイト</a></li><li><a href="#">FC</a></li><li><a href="#">暖簾分け</a></li></ul></div>
+            <div><h6>Web集客事業</h6><ul><li><a href="#">成果報酬集客</a></li></ul></div>
+            <div><h6>メディア・新着</h6><ul><li><a href="#">メディア掲載</a></li><li><a href="#">新着情報</a></li><li><a href="#" class="btn-wg ext" style="margin-top:8px">お問い合わせ</a></li></ul></div>
+          </div>
+          <div class="fbottom"><span>© 株式会社ウェブグロース</span><span>Rev. 2026-07-16 デザインカンプ</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SP -->
+    <div class="sp-frame">
+      <p class="dev-cap">スマホ ／ 375px</p>
+      <div class="frame">
+        <div class="notch"></div>
+        <div class="site-nav">
+          <img class="nav-logo" src="images/logo.png" alt="WEB GROWTH" style="height:22px">
+          <span class="burger"><i></i><i></i><i></i></span>
+        </div>
+        <div class="hero-block duotone-hero" style="min-height:200px">
+          <div class="hero-bg"><img src="images/handyman.jpg" alt=""></div>
+          <div class="hero-inner">
+            <span class="kicker-line" style="font-size:10px">実直な事業成長パートナー</span>
+            <h2 style="font-size:20px">二本柱で、<br>地域の成長を支える。</h2>
+            <a class="btn btn-primary" href="#" style="width:100%">サービスを見る</a>
+          </div>
+        </div>
+        <div class="sect-block"><span class="sect-label">事業</span><div class="stack"><div class="ph" style="height:56px">便利屋事業</div><div class="ph" style="height:56px">Web集客事業</div></div></div>
+        <div class="sect-block"><span class="sect-label">選ばれる理由</span><div class="stack"><div class="tb" style="width:80%"></div><div class="tb" style="width:70%"></div><div class="tb" style="width:75%"></div></div></div>
+        <div class="sect-block accent-bg"><span class="sect-label">目的別導線</span><div class="stack"><div class="tb" style="height:11px;background:var(--color-accent-200)"></div><div class="tb" style="height:11px;background:var(--color-accent-200);width:85%"></div></div></div>
+        <div class="sect-block"><span class="sect-label">新着</span><div class="stack"><div class="tb"></div><div class="tb" style="width:80%"></div></div></div>
+        <div class="sect-block accent-bg" style="text-align:center"><span class="sect-label">CTA</span><a class="btn-wg ext" href="#" style="width:100%">お問い合わせ</a></div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="notes-col">
+      <p class="notes-cap">制作メモ・注記</p>
+      <div class="anno tip"><span class="pin">1</span><b>制作提案 ／ ファーストビュー</b>会社の役割を一文で。「何の会社か」を最初の画面で理解させる。派手さより実写＋短い言葉で信頼感。</div>
+      <div class="anno dec"><span class="pin">2</span><b>クライアント決定 ／ 二事業</b>便利屋事業とWeb集客事業を同列に見せる（トップの優先度は同等）。関係性が伝わる並置に。</div>
+      <div class="anno tip"><span class="pin">3</span><b>制作提案 ／ 目的別導線</b>「開業したい／集客を任せたい／働いてみたい」など課題別に詳細ページへ誘導。</div>
+      <div class="anno tip"><span class="pin">4</span><b>制作提案 ／ 新着情報</b>WordPress標準投稿を自動表示。公開日・カテゴリ・タイトル・アイキャッチ。</div>
+      <div class="anno dec"><span class="pin">5</span><b>クライアント決定 ／ お問い合わせ</b>外部Formzuフォームへ遷移。外部サイトへ移動する旨を明示。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     02 ABOUT
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="about">
+  <div class="pagelabel"><span class="no">02</span><span class="kick">私たちについて</span><h2>会社概要</h2><span class="url">?page_id=69（並べ替え）</span></div>
+  <div class="badgerow"><span class="badge badge-dec">会社情報表を冒頭に</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?page_id=69</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt="WEB GROWTH"><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block"><div class="breadcrumb"><a href="#">ホーム</a><span>›</span><span>会社概要</span></div></div>
+        <div class="sect-block pin-float">
+          <span class="pin">1</span>
+          <span class="sect-label">会社情報表（冒頭）</span>
+          <table class="info-tbl">
+            <tr><th>会社名</th><td>株式会社ウェブグロース</td></tr>
+            <tr><th>設立</th><td>（要確認）</td></tr>
+            <tr><th>代表取締役</th><td>（要確認）</td></tr>
+            <tr><th>所在地</th><td>（要確認）</td></tr>
+            <tr><th>事業内容</th><td>便利屋事業、地域密着型Web集客事業</td></tr>
+            <tr><th>電話番号</th><td>（要確認）</td></tr>
+          </table>
+        </div>
+        <div class="sect-block"><span class="sect-label">企業理念</span><div class="hb sm" style="width:38%;margin-bottom:10px"></div><div class="stack"><div class="tb"></div><div class="tb" style="width:88%"></div></div></div>
+        <div class="sect-block"><span class="sect-label">代表挨拶</span><div class="stack"><div class="hb sm" style="width:32%"></div><div class="tb"></div><div class="tb" style="width:94%"></div><div class="tb" style="width:88%"></div><div class="tb" style="width:70%"></div></div></div>
+        <div class="sect-block"><span class="sect-label">事業内容</span><div class="g2"><div class="svc-card"><div class="svc-img duotone"><img src="images/handyman_bisiness_mv.jpg" alt=""></div><div class="svc-body"><span class="svc-title">便利屋事業</span></div></div><div class="svc-card"><div class="svc-img duotone"><img src="images/web.jpg" alt=""></div><div class="svc-body"><span class="svc-title">Web集客事業</span></div></div></div></div>
+        <div class="sect-block"><span class="sect-label">アクセス</span><div class="ph" style="height:120px">Google Map</div></div>
+      </div>
+    </div>
+    <div class="sp-frame">
+      <p class="dev-cap">スマホ</p>
+      <div class="frame"><div class="notch"></div><div class="site-nav"><img class="nav-logo" src="images/logo.png" alt="" style="height:22px"><span class="burger"><i></i><i></i><i></i></span></div>
+        <div class="sect-block"><span class="sect-label">会社情報表</span><div class="stack"><div class="tb" style="height:11px"></div><div class="tb" style="height:11px"></div><div class="tb" style="height:11px;width:70%"></div></div></div>
+        <div class="sect-block"><span class="sect-label">企業理念</span><div class="tb" style="width:60%"></div></div>
+        <div class="sect-block"><span class="sect-label">代表挨拶</span><div class="stack"><div class="hb sm" style="width:50%"></div><div class="tb"></div><div class="tb" style="width:75%"></div></div></div>
+        <div class="sect-block"><span class="sect-label">事業内容</span><div class="stack"><div class="ph" style="height:46px">便利屋事業</div><div class="ph" style="height:46px">Web集客事業</div></div></div>
+        <div class="sect-block"><span class="sect-label">アクセス</span><div class="ph" style="height:64px">地図</div></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ 構成</b>会社情報の表をページ冒頭へ配置。現行は理念・挨拶の後に会社情報のため先頭へ移動。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 並び順</b>会社情報表 → 企業理念 → 代表挨拶 → 事業内容 → アクセス を基本順とする。</div>
+      <div class="anno chk"><span class="pin">3</span><b>要確認 ／ プライバシー</b>プライバシーポリシーの制定日／最終改定日、会社情報・電話対応方針・決済方法を最新化。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     03 HUB
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="hub">
+  <div class="pagelabel"><span class="no">03</span><span class="kick">便利屋事業</span><h2>便利屋事業トップ（ハブ）</h2><span class="url">?service=business（再構成）</span></div>
+  <div class="badgerow"><span class="badge badge-dec">サービス一覧の案内ページに</span><span class="badge badge-mig">現行の混在を分離</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?service=business</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block pin-float"><span class="pin">1</span><span class="sect-label">導入</span><div class="hb" style="height:26px;width:60%"></div><p class="sect-text" style="margin-top:8px">便利屋に関するサービスを目的別にご案内します。対象者と違いから選べます。</p></div>
+        <div class="sect-block pin-float">
+          <span class="pin">2</span>
+          <span class="sect-label">サービス一覧（対象者と違い）</span>
+          <div class="g5">
+            <div class="svc-card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><div class="svc-img duotone" style="height:60px"><img src="images/consulting_mv.jpg" alt=""></div><div class="svc-body"><span class="svc-title" style="font-size:13px">集客代行</span><span class="svc-desc">集客を任せたい</span></div></div>
+            <div class="svc-card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><div class="svc-img duotone" style="height:60px"><img src="images/opening_mv.jpg" alt=""></div><div class="svc-body"><span class="svc-title" style="font-size:13px">開業支援</span><span class="svc-desc">50歳以上・開業相談</span></div></div>
+            <div class="svc-card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><div class="svc-img duotone" style="height:60px"><img src="images/job_mv.jpg" alt=""></div><div class="svc-body"><span class="svc-title" style="font-size:13px">体験・バイト</span><span class="svc-desc">働いてみたい</span></div></div>
+            <div class="svc-card blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><div class="svc-img duotone" style="height:60px"><img src="images/franchise_mv.jpg" alt=""></div><div class="svc-body"><span class="svc-title" style="font-size:13px">FC</span><span class="svc-desc">加盟したい</span></div></div>
+            <div class="svc-card highlight blueprint"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><div class="svc-img duotone" style="height:60px"><img src="images/handyman_bisiness.jpg" alt=""></div><div class="svc-body"><span class="svc-title" style="font-size:13px">暖簾分け</span><span class="svc-desc">実務後に独立</span></div></div>
+          </div>
+        </div>
+        <div class="sect-block accent-bg" style="text-align:center;padding:22px 28px"><span class="sect-label">CTA</span><a class="btn-wg ext lg" href="#">お問い合わせ</a></div>
+      </div>
+    </div>
+    <div class="sp-frame">
+      <p class="dev-cap">スマホ</p>
+      <div class="frame"><div class="notch"></div><div class="site-nav"><img class="nav-logo" src="images/logo.png" alt="" style="height:22px"><span class="burger"><i></i><i></i><i></i></span></div>
+        <div class="sect-block"><span class="sect-label">導入</span><div class="hb sm" style="width:70%"></div></div>
+        <div class="sect-block"><span class="sect-label">サービス一覧</span><div class="stack"><div class="ph" style="height:40px">集客代行</div><div class="ph" style="height:40px">開業支援</div><div class="ph" style="height:40px">体験・バイト</div><div class="ph" style="height:40px">FC</div><div class="ph" style="height:40px">暖簾分け</div></div></div>
+        <div class="sect-block accent-bg" style="text-align:center"><a class="btn-wg ext" href="#" style="width:100%">お問い合わせ</a></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ 役割</b>便利屋事業トップは関連サービスをまとめるナビゲーションページにする。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 分離</b>現行は事業説明・コミュニティ・コンサル・比較メディアが1ページに混在。各サービスの対象者と違いを短く示し詳細ページへ分離。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     04 CONSULTING
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="consulting">
+  <div class="pagelabel"><span class="no">04</span><span class="kick">便利屋事業</span><h2>便利屋集客代行</h2><span class="url">?service=consulting（大幅改稿）</span></div>
+  <div class="badgerow"><span class="badge badge-dec">集客代行がテーマ</span><span class="badge badge-dec">チラシ添削・HP診断を削除</span><span class="badge badge-dec">成果報酬型へ</span><span class="badge badge-mig">別LPあり・本文は簡潔</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?service=consulting</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block pin-float"><span class="pin">1</span><span class="sect-label">FV</span><div class="hb" style="height:26px;width:70%"></div><p class="sect-text" style="margin-top:8px">便利屋の集客を成果報酬型で代行。まずは概要をご案内します。</p></div>
+        <div class="sect-block pin-float"><span class="pin">2</span><span class="sect-label">サービス概要（簡潔）</span><div class="g3"><div class="stack"><div class="ph" style="height:44px"></div><div class="tb" style="width:80%"></div></div><div class="stack"><div class="ph" style="height:44px"></div><div class="tb" style="width:80%"></div></div><div class="stack"><div class="ph" style="height:44px"></div><div class="tb" style="width:70%"></div></div></div></div>
+        <div class="sect-block pin-float"><span class="pin">3</span><span class="sect-label">成果報酬の考え方</span><div class="stack"><div class="tb" style="width:90%"></div><div class="tb" style="width:60%"></div></div></div>
+        <div class="sect-block accent-bg pin-float" style="text-align:center;padding:24px 28px"><span class="pin">4</span><span class="sect-label">LPへの導線</span><div class="hb sm" style="width:46%;margin:0 auto 12px;background:var(--color-accent-300)"></div><a class="btn-wg ext lg" href="#">詳しくは専用LPへ</a></div>
+        <div class="sect-block" style="text-align:center"><span class="sect-label">お問い合わせ</span><a class="btn-wg ghost ext" href="#">お問い合わせ</a></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ テーマ</b>主テーマは「便利屋の集客代行」。今後すべて成果報酬型へ移行予定。</div>
+      <div class="anno dec"><span class="pin">2</span><b>クライアント決定 ／ 削除</b>チラシ添削・ホームページ診断の記載は削除。</div>
+      <div class="anno chk"><span class="pin">3</span><b>要確認 ／ 表現</b>成果の定義・費用発生条件・対象外条件を明記。</div>
+      <div class="anno dec"><span class="pin">4</span><b>クライアント決定 ／ 簡潔に</b>別LPがあるため本体サイトは暫定的に簡潔。概要＋LP導線を中心に。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     05 OPENING
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="opening">
+  <div class="pagelabel"><span class="no">05</span><span class="kick">便利屋事業</span><h2>便利屋の開業支援・経営相談</h2><span class="url">?service=opening（改稿）</span></div>
+  <div class="badgerow"><span class="badge badge-dec">主対象は50歳以上</span><span class="badge badge-seo">便利屋開業 / 高齢者 / 相談</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?service=opening</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="hero-block duotone-hero pin-float" style="min-height:200px"><span class="pin">1</span><div class="hero-bg"><img src="images/opening_mv.jpg" alt=""></div><div class="hero-inner"><span class="kicker-line">50歳からの便利屋開業</span><h2>未経験でも、一歩を踏み出せる。</h2><p>シニア世代の開業相談に対応します。不安を一つずつ解消し、一緒に計画を立てます。</p><a class="btn btn-primary" href="#">無料で相談する</a></div></div>
+        <div class="sect-block pin-float"><span class="pin">2</span><span class="sect-label">よくある不安</span><div class="g3"><div class="ph" style="height:50px">体力は？</div><div class="ph" style="height:50px">資金は？</div><div class="ph" style="height:50px">経験は？</div></div></div>
+        <div class="sect-block"><span class="sect-label">相談内容</span><div class="g2"><div class="stack"><div class="tb" style="width:80%"></div><div class="tb" style="width:60%"></div></div><div class="stack"><div class="tb" style="width:70%"></div><div class="tb" style="width:75%"></div></div></div></div>
+        <div class="sect-block"><span class="sect-label">支援範囲</span><div class="stack"><div class="tb" style="width:90%"></div><div class="tb" style="width:78%"></div></div></div>
+        <div class="sect-block pin-float"><span class="pin">3</span><span class="sect-label">相談までの流れ</span><div class="step-row"><div class="step-item"><span class="step-num">01</span><span style="font-size:11px">お問い合わせ</span></div><div class="step-item"><span class="step-num">02</span><span style="font-size:11px">ヒアリング</span></div><div class="step-item"><span class="step-num">03</span><span style="font-size:11px">計画策定</span></div><div class="step-item"><span class="step-num">04</span><span style="font-size:11px">開業準備</span></div></div></div>
+        <div class="sect-block accent-bg" style="text-align:center;padding:22px 28px"><a class="btn-wg lg" href="#">開業相談を予約</a></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ 対象</b>50歳以上の開業希望者を主対象に構成。文言・写真もシニア世代に配慮。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 導線</b>不安 → 相談内容 → 支援範囲 → 相談までの流れ を分かりやすく。</div>
+      <div class="anno seo"><span class="pin">3</span><b>SEO ／ キーワード</b>「便利屋開業」「便利屋開業 高齢者」「便利屋開業 相談」を主要見出しに反映。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     06 JOB
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="job">
+  <div class="pagelabel"><span class="no">06</span><span class="kick">便利屋事業</span><h2>便利屋体験・アルバイト</h2><span class="url">?service=job（慎重に改稿）</span></div>
+  <div class="badgerow"><span class="badge badge-seo">現在1位・検索評価を保護</span><span class="badge badge-dec">便利屋体験 / 便利屋アルバイト</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar" style="background:var(--color-accent-100)">webgrowth.co.jp/?service=job</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block pin-float"><span class="pin">1</span><span class="sect-label">FV（H1維持）</span><div class="hb" style="height:28px;width:64%"></div><p class="sect-text" style="margin-top:8px">既存のタイトル・H1・主要コンテンツを保持したまま整理する。</p></div>
+        <div class="sect-block accent-bg pin-float"><span class="pin">2</span><span class="sect-label">ページ内ナビ</span><div class="g3"><div class="card" style="background:var(--color-bg);padding:var(--space-3);text-align:center;font-family:var(--font-heading);font-size:14px">開業前の体験</div><div class="card" style="background:var(--color-bg);padding:var(--space-3);text-align:center;font-family:var(--font-heading);font-size:14px">スポットバイト</div><div class="card" style="background:var(--color-bg);padding:var(--space-3);text-align:center;font-family:var(--font-heading);font-size:14px">通常のアルバイト募集</div></div></div>
+        <div class="sect-block"><span class="sect-label">① 開業前の体験</span><div class="g2" style="grid-template-columns:1fr 140px"><div class="stack"><div class="tb" style="width:90%"></div><div class="tb" style="width:70%"></div></div><div class="ph" style="height:80px"></div></div></div>
+        <div class="sect-block"><span class="sect-label">② スポットバイト</span><div class="g2" style="grid-template-columns:140px 1fr"><div class="ph" style="height:80px"></div><div class="stack"><div class="tb" style="width:80%"></div><div class="tb" style="width:75%"></div></div></div></div>
+        <div class="sect-block pin-float"><span class="pin">3</span><span class="sect-label">③ 通常のアルバイト募集</span>
+          <table class="info-tbl"><tr><th>報酬</th><td>（公開時に最新情報へ更新）</td></tr><tr><th>交通費</th><td>（要確認）</td></tr><tr><th>勤務時間</th><td>（要確認）</td></tr><tr><th>対象地域</th><td>（要確認）</td></tr></table>
+        </div>
+        <div class="sect-block accent-bg" style="text-align:center;padding:22px 28px"><span class="sect-label">応募CTA</span><a class="btn-wg ext lg" href="#">応募・お問い合わせ</a></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno seo"><span class="pin">1</span><b>クライアント決定 ／ SEO保護</b>現状1位との共有あり。URL・タイトル・主要見出し・主要コンテンツの大幅変更は慎重に。検索意図を維持。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 整理</b>「開業前の体験」「スポットバイト」「通常のアルバイト募集」の3系統をページ内ナビで整理。</div>
+      <div class="anno chk"><span class="pin">3</span><b>要確認 ／ 法務</b>報酬・交通費・勤務時間・対象地域を公開時点の情報へ更新。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     07 FRANCHISE
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="franchise">
+  <div class="pagelabel"><span class="no">07</span><span class="kick">便利屋事業</span><h2>便利屋フランチャイズ</h2><span class="url">?service=franchise（継続・再編集）</span></div>
+  <div class="badgerow"><span class="badge badge-mig">現行URL綴り変更時は301</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?service=franchise</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="hero-block duotone-hero pin-float" style="min-height:160px"><span class="pin">1</span><div class="hero-bg"><img src="images/franchise_mv.jpg" alt=""></div><div class="hero-inner"><h2>便利屋フランチャイズ</h2><p>加盟の特徴と支援を要点からご案内。</p></div></div>
+        <div class="sect-block"><span class="sect-label">対象者</span><div class="g3"><div class="ph" style="height:50px"></div><div class="ph" style="height:50px"></div><div class="ph" style="height:50px"></div></div></div>
+        <div class="sect-block"><span class="sect-label">特徴</span><div class="stack"><div class="tb" style="width:90%"></div><div class="tb" style="width:70%"></div></div></div>
+        <div class="sect-block"><span class="sect-label">支援内容</span><div class="g2"><div class="stack"><div class="tb" style="width:80%"></div><div class="tb" style="width:60%"></div></div><div class="stack"><div class="tb" style="width:75%"></div><div class="tb" style="width:70%"></div></div></div></div>
+        <div class="sect-block pin-float"><span class="pin">2</span><span class="sect-label">加盟までの流れ</span><div class="step-row"><div class="step-item"><span class="step-num">01</span><span style="font-size:11px">お問い合わせ</span></div><div class="step-item"><span class="step-num">02</span><span style="font-size:11px">面談</span></div><div class="step-item"><span class="step-num">03</span><span style="font-size:11px">契約</span></div><div class="step-item"><span class="step-num">04</span><span style="font-size:11px">開業</span></div></div></div>
+        <div class="sect-block"><span class="sect-label">FAQ</span><div class="stack"><div class="tb" style="height:11px"></div><div class="tb" style="height:11px;width:80%"></div><div class="tb" style="height:11px;width:88%"></div></div></div>
+        <div class="sect-block accent-bg" style="text-align:center;padding:22px 28px"><a class="btn-wg ext lg" href="#">資料請求・お問い合わせ</a></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno tip"><span class="pin">1</span><b>制作提案 ／ 再編集</b>現行は長文。要点 → 対象者 → 特徴 → 支援内容 → 流れ → FAQ → 問い合わせ の順へ再編集。</div>
+      <div class="anno" style="border-left:3px solid var(--color-neutral-400)"><span class="pin" style="background:var(--color-neutral-400)">2</span><b style="color:var(--color-neutral-600)">移行 ／ URL</b>現行URLの綴り変更する場合は旧→新を301で一対一転送。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     08 NOREN
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="noren">
+  <div class="pagelabel"><span class="no">08</span><span class="kick">便利屋事業</span><h2>便利屋開業・暖簾分け</h2><span class="url">新規ページ</span></div>
+  <div class="badgerow"><span class="badge badge-new">新規</span><span class="badge badge-dec">1年実務→独立を支援</span><span class="badge badge-dec">独立後もバックアップ</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?service=noren</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="hero-block duotone-hero pin-float" style="min-height:200px"><span class="pin">1</span><div class="hero-bg"><img src="images/handyman_bisiness.jpg" alt=""></div><div class="hero-inner"><span class="kicker-line">暖簾分けで独立する</span><h2>1年の実務経験を経て、<br>自分の便利屋を始める。</h2><p>自社で1年間の実務経験を積んだ後に独立。ノウハウや集客方法は独立後も自社がバックアップします。</p></div></div>
+        <div class="sect-block pin-float"><span class="pin">2</span><span class="sect-label">仕組み（1年実務→独立）</span><div class="step-row"><div class="step-item"><span class="step-num">01</span><span style="font-size:11px">入社・実務</span></div><div class="step-item"><span class="step-num">02</span><span style="font-size:11px">独立準備</span></div><div class="step-item"><span class="step-num">03</span><span style="font-size:11px">独立</span></div></div></div>
+        <div class="sect-block pin-float">
+          <span class="pin">3</span>
+          <span class="sect-label">FC・開業支援との違い（比較表）</span>
+          <table class="cmp-tbl">
+            <thead><tr><th></th><th>暖簾分け</th><th>フランチャイズ</th><th>開業支援</th></tr></thead>
+            <tbody>
+              <tr><th>前提</th><td class="hi">1年間の実務経験</td><td>加盟契約</td><td>相談のみ</td></tr>
+              <tr><th>独立後支援</th><td class="hi">継続バックアップ</td><td>契約範囲内</td><td>なし</td></tr>
+              <tr><th>対象</th><td class="hi">（要確認）</td><td>希望者全般</td><td>50歳以上中心</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sect-block pin-float"><span class="pin">4</span><span class="sect-label">独立後のバックアップ</span><div class="stack"><div class="tb" style="width:85%"></div><div class="tb" style="width:60%"></div></div></div>
+        <div class="sect-block accent-bg" style="text-align:center;padding:22px 28px"><a class="btn-wg lg" href="#">無料相談はこちら ＞</a></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ 新設</b>「便利屋開業・暖簾分け」ページを新設する。</div>
+      <div class="anno dec"><span class="pin">2</span><b>クライアント決定 ／ 仕組み</b>自社で1年間実務を経験した後の独立を支援。独立後もバックアップ。</div>
+      <div class="anno tip"><span class="pin">3</span><b>制作提案 ／ 差別化</b>フランチャイズ・開業相談・アルバイトとの違いを明確に示す。</div>
+      <div class="anno chk"><span class="pin">4</span><b>要確認</b>独立後バックアップの具体内容／1年実務の雇用形態・対象地域・応募条件を確定。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     09 WEB
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="web">
+  <div class="pagelabel"><span class="no">09</span><span class="kick">Web集客事業</span><h2>地域密着型スモールビジネスの成果報酬集客事業</h2><span class="url">?works=business ← consulting 統合</span></div>
+  <div class="badgerow"><span class="badge badge-mig">2ページを統合</span><span class="badge badge-chk">成果定義・対象業種は要確認</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?works=business</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block pin-float"><span class="pin">1</span><span class="sect-label">FV</span><div class="hb" style="height:28px;width:80%"></div><p class="sect-text" style="margin-top:8px">HP制作ではなく、地域事業者の「集客の成果」を成果報酬で支援。</p></div>
+        <div class="sect-block pin-float"><span class="pin">2</span><span class="sect-label">成果報酬とは</span><div class="g3"><div class="ph" style="height:50px"></div><div class="ph" style="height:50px"></div><div class="ph" style="height:50px"></div></div></div>
+        <div class="sect-block"><span class="sect-label">支援範囲</span><div class="g2"><div class="stack"><div class="tb" style="width:80%"></div><div class="tb" style="width:60%"></div></div><div class="stack"><div class="tb" style="width:75%"></div><div class="tb" style="width:70%"></div></div></div></div>
+        <div class="sect-block pin-float"><span class="pin">3</span><span class="sect-label">対象業種</span><div class="flex-row" style="flex-wrap:wrap;gap:8px"><div class="ph" style="width:110px;height:34px"></div><div class="ph" style="width:110px;height:34px"></div><div class="ph" style="width:110px;height:34px"></div><div class="ph" style="width:110px;height:34px"></div></div></div>
+        <div class="sect-block"><span class="sect-label">事例・実績</span><div class="g3"><div class="svc-card"><div class="svc-img duotone" style="height:70px"><img src="images/consulting_image_1.jpg" alt=""></div><div class="svc-body"><div class="tb" style="width:70%"></div></div></div><div class="svc-card"><div class="svc-img" style="height:70px"><div class="ph" style="height:100%"></div></div><div class="svc-body"><div class="tb" style="width:70%"></div></div></div><div class="svc-card"><div class="svc-img" style="height:70px"><div class="ph" style="height:100%"></div></div><div class="svc-body"><div class="tb" style="width:70%"></div></div></div></div></div>
+        <div class="sect-block accent-bg" style="text-align:center;padding:22px 28px"><a class="btn-wg ext lg" href="#">相談する</a></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ 統合</b>「成果報酬型ウェブコンサル」と「HP新規作成」を統合し本ページへ。旧ページは301転送。書道教室HPは削除（301／無ければ410検討）。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 見せ方</b>ホームページ制作そのものでなく、地域事業者の集客成果を支援するサービスとして見せる。</div>
+      <div class="anno chk"><span class="pin">3</span><b>要確認</b>成果の定義・支援範囲・対象業種・契約条件を確認後に掲載。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     10 MEDIA
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="media">
+  <div class="pagelabel"><span class="no">10</span><span class="kick">メディア・コミュニティ</span><h2>メディア・コミュニティ</h2><span class="url">?works=media（継続・拡張）</span></div>
+  <div class="badgerow"><span class="badge badge-dec">運営メディアを別枠で</span><span class="badge badge-dec">コミュニティ掲載</span><span class="badge badge-chk">「日本最大級」等は根拠確認</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/?works=media</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block pin-float"><span class="pin">1</span><span class="sect-label">メディア掲載</span><div class="flex-row" style="flex-wrap:wrap;gap:10px"><div class="ph" style="width:120px;height:54px">掲載ロゴ</div><div class="ph" style="width:120px;height:54px"></div><div class="ph" style="width:120px;height:54px"></div><div class="ph" style="width:120px;height:54px"></div></div></div>
+        <div class="sect-block accent-bg pin-float"><span class="pin">2</span><span class="sect-label">運営メディア（別枠）</span><div class="g2" style="grid-template-columns:130px 1fr;gap:14px;align-items:center"><div class="ph" style="height:74px">ロゴ</div><div class="stack"><span class="sect-h3" style="font-size:16px">便利屋フランチャイズコム</span><div class="tb" style="width:80%"></div><a class="btn-wg ghost ext" href="#" style="align-self:flex-start">メディアを見る</a></div></div></div>
+        <div class="sect-block pin-float">
+          <span class="pin">3</span>
+          <span class="sect-label">運営コミュニティ（6カテゴリ）</span>
+          <div class="g3">
+            <div class="comm-card"><span class="comm-kicker">便利屋</span><div class="tb" style="width:90%"></div><a class="btn-wg ghost ext" href="#" style="align-self:flex-start;height:28px;font-size:11px">参加</a></div>
+            <div class="comm-card"><span class="comm-kicker">不用品・遺品整理</span><div class="tb" style="width:85%"></div><a class="btn-wg ghost ext" href="#" style="align-self:flex-start;height:28px;font-size:11px">参加</a></div>
+            <div class="comm-card"><span class="comm-kicker">特殊清掃・ゴミ屋敷</span><div class="tb" style="width:90%"></div><a class="btn-wg ghost ext" href="#" style="align-self:flex-start;height:28px;font-size:11px">参加</a></div>
+            <div class="comm-card"><span class="comm-kicker">造園・庭仕事</span><div class="tb" style="width:80%"></div><a class="btn-wg ghost ext" href="#" style="align-self:flex-start;height:28px;font-size:11px">参加</a></div>
+            <div class="comm-card"><span class="comm-kicker">業者連携</span><div class="tb" style="width:88%"></div><a class="btn-wg ghost ext" href="#" style="align-self:flex-start;height:28px;font-size:11px">参加</a></div>
+            <div class="comm-card"><span class="comm-kicker">不動産</span><div class="tb" style="width:75%"></div><a class="btn-wg ghost ext" href="#" style="align-self:flex-start;height:28px;font-size:11px">参加</a></div>
+          </div>
+          <p class="sect-muted" style="margin-top:10px">各カテゴリ見出し＋代表コミュニティを掲載（LINEオープンチャット等へ ↗）</p>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ 分離</b>メディア掲載実績と、運営メディア・運営コミュニティは別枠で紹介する。</div>
+      <div class="anno dec"><span class="pin">2</span><b>クライアント決定 ／ 運営メディア</b>「便利屋フランチャイズコム」を別枠で紹介。要確認: 正式名称・URL・ロゴ・紹介文</div>
+      <div class="anno tip"><span class="pin">3</span><b>制作提案 ／ 分類</b>便利屋／不用品・遺品整理／特殊清掃・ゴミ屋敷／造園・庭仕事／業者連携／不動産 の6分類。参加人数・対象者・参加条件は要確認。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     11 NEWS LIST
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="news">
+  <div class="pagelabel"><span class="no">11</span><span class="kick">新着情報</span><h2>新着情報 一覧</h2><span class="url">WordPress 投稿一覧</span></div>
+  <div class="badgerow"><span class="badge badge-dec">WordPress投稿から入稿</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/news/</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block"><div class="hb sm" style="width:20%;margin-bottom:2px"></div></div>
+        <div class="sect-block pin-float"><span class="pin">1</span><span class="sect-label">カテゴリフィルタ</span><div class="flex-row" style="flex-wrap:wrap;gap:8px"><span class="badge badge-mig" style="border-style:solid">お知らせ</span><span class="badge badge-mig" style="border-style:solid">メディア掲載</span><span class="badge badge-mig" style="border-style:solid">事業情報</span><span class="badge badge-mig" style="border-style:solid">コラム</span></div></div>
+        <div class="sect-block pin-float">
+          <span class="pin">2</span>
+          <span class="sect-label">投稿一覧</span>
+          <div class="g3">
+            <div class="post-card"><div class="post-img duotone"><img src="images/business_eyecatch.jpg" alt=""></div><div class="post-body"><span class="post-cat">お知らせ</span><div class="post-date">2026.07.10</div><div class="post-ttl">サービス拡充のお知らせ</div></div></div>
+            <div class="post-card"><div class="post-img duotone"><img src="images/app_eyecatch.jpg" alt=""></div><div class="post-body"><span class="post-cat">コラム</span><div class="post-date">2026.07.05</div><div class="post-ttl">便利屋開業に必要な準備とは</div></div></div>
+            <div class="post-card"><div class="post-img duotone"><img src="images/consulting_eyecatch-1.jpg" alt=""></div><div class="post-body"><span class="post-cat">事業情報</span><div class="post-date">2026.06.28</div><div class="post-ttl">成果報酬型サービスの考え方</div></div></div>
+            <div class="post-card"><div class="post-img"><div class="ph" style="height:100%"></div></div><div class="post-body"><span class="post-cat">お知らせ</span><div class="post-date">2026.06.20</div><div class="post-ttl">新規ページ公開のお知らせ</div></div></div>
+            <div class="post-card"><div class="post-img"><div class="ph" style="height:100%"></div></div><div class="post-body"><span class="post-cat">メディア掲載</span><div class="post-date">2026.06.15</div><div class="post-ttl">メディアに掲載されました</div></div></div>
+            <div class="post-card"><div class="post-img"><div class="ph" style="height:100%"></div></div><div class="post-body"><span class="post-cat">コラム</span><div class="post-date">2026.06.10</div><div class="post-ttl">地域密着型ビジネスの集客ポイント</div></div></div>
+          </div>
+        </div>
+        <div class="sect-block" style="text-align:center"><div class="flex-row" style="justify-content:center;gap:6px"><div class="ph" style="width:32px;height:32px">1</div><div class="ph" style="width:32px;height:32px">2</div><div class="ph" style="width:32px;height:32px">3</div><div class="ph" style="width:32px;height:32px">›</div></div></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ 運用</b>新着記事はWordPress標準「投稿」から入稿。一覧名は「新着情報」または「お知らせ」。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 表示項目</b>公開日・カテゴリ・タイトル・アイキャッチを表示。カテゴリ: お知らせ／メディア掲載／事業情報／コラム。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     12 POST DETAIL
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="post">
+  <div class="pagelabel"><span class="no">12</span><span class="kick">新着情報</span><h2>新着情報 詳細</h2><span class="url">WordPress 投稿詳細</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/news/sample-post/</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block pin-float"><span class="pin">1</span><div class="breadcrumb"><a href="#">ホーム</a><span>›</span><a href="#">新着情報</a><span>›</span><span>記事タイトル</span></div></div>
+        <div class="sect-block"><span class="sect-label">タイトル・メタ</span><div class="flex-row" style="gap:8px;margin-bottom:10px"><span class="badge badge-mig" style="border-style:solid">お知らせ</span><span style="font-size:11px;color:var(--color-neutral-500)">2026.07.10</span></div><div class="hb" style="height:28px;width:88%"></div></div>
+        <div class="sect-block"><span class="sect-label">アイキャッチ</span><div style="height:160px;overflow:hidden;border:1px solid var(--color-divider)"><div class="duotone" style="width:100%;height:100%"><img src="images/business_eyecatch.jpg" alt="" style="width:100%;height:100%;object-fit:cover"></div></div></div>
+        <div class="sect-block pin-float"><span class="pin">2</span><span class="sect-label">本文（見出し・要約）</span><div class="stack"><div class="hb sm" style="width:40%"></div><div class="tb"></div><div class="tb" style="width:96%"></div><div class="tb" style="width:88%"></div><div class="hb sm" style="width:36%;margin-top:6px"></div><div class="tb"></div><div class="tb" style="width:80%"></div></div></div>
+        <div class="sect-block pin-float"><span class="pin">3</span><span class="sect-label">関連記事</span><div class="g3"><div class="post-card"><div class="post-img"><div class="ph" style="height:100%"></div></div><div class="post-body"><div class="tb" style="width:80%"></div></div></div><div class="post-card"><div class="post-img"><div class="ph" style="height:100%"></div></div><div class="post-body"><div class="tb" style="width:70%"></div></div></div><div class="post-card"><div class="post-img"><div class="ph" style="height:100%"></div></div><div class="post-body"><div class="tb" style="width:75%"></div></div></div></div></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno tip"><span class="pin">1</span><b>制作提案 ／ 構成</b>パンくず・OGP画像設定・関連記事を用意。前後記事は必要性を確認。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 運用マニュアル</b>投稿者が迷わないよう、アイキャッチサイズ・見出しの使い方をマニュアル化。</div>
+      <div class="anno chk"><span class="pin">3</span><b>要確認</b>メディア掲載を通常投稿で運用するか固定ページで管理するかは更新頻度を見て決定。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     13 CONTACT
+     ════════════════════════════════════════════════════════ -->
+<div class="pagewrap" id="contact">
+  <div class="pagelabel"><span class="no">13</span><span class="kick">お問い合わせ</span><h2>お問い合わせ導線</h2><span class="url">外部フォーム（Formzu）↗</span></div>
+  <div class="badgerow"><span class="badge badge-dec">外部Formzuフォーム</span><span class="badge badge-chk">用途別フォーム有無を確認</span></div>
+  <div class="stage">
+    <div class="pc-frame">
+      <p class="dev-cap">PC</p>
+      <div class="frame">
+        <div class="chrome"><i class="cdot"></i><i class="cdot"></i><i class="cdot"></i><span class="urlbar">webgrowth.co.jp/contact/</span></div>
+        <div class="site-nav"><img class="nav-logo" src="images/logo.png" alt=""><div class="nav-links"><a href="#">私たちについて</a><a href="#">便利屋事業</a><a href="#">Web集客事業</a><a href="#">メディア</a><a href="#">新着情報</a></div><a class="btn btn-primary nav-cta" href="#">お問い合わせ</a></div>
+        <div class="sect-block pin-float" style="text-align:center">
+          <span class="pin">1</span>
+          <span class="sect-label">案内</span>
+          <div class="hb sm" style="width:40%;margin:0 auto 12px"></div>
+          <p class="sect-text" style="max-width:460px;margin:0 auto">お問い合わせは外部フォーム（Formzu）で受け付けています。ボタンから外部サイトへ移動します。</p>
+        </div>
+        <div class="sect-block accent-bg pin-float" style="text-align:center;padding:30px 28px">
+          <span class="pin">2</span>
+          <a class="btn-wg ext lg" href="#">問い合わせはこちら ＞</a>
+          <p class="sect-muted" style="margin-top:10px">↗ 別タブで開きます</p>
+        </div>
+        <div class="sect-block"><span class="sect-label">その他の連絡先</span><div class="g3"><div class="ph" style="height:50px">電話</div><div class="ph" style="height:50px">受付時間</div><div class="ph" style="height:50px">所在地</div></div></div>
+        <div class="site-footer">
+          <div class="fgrid">
+            <div><img src="images/logo.png" alt="" style="height:22px;filter:brightness(0) invert(1);margin-bottom:10px"><p style="font-size:11px;color:var(--color-accent-400);line-height:1.7">現場を知る、実直な事業成長パートナー。</p></div>
+            <div><h6>私たちについて</h6><ul><li><a href="#">会社概要</a></li></ul></div>
+            <div><h6>便利屋事業</h6><ul><li><a href="#">集客代行</a></li><li><a href="#">開業支援</a></li><li><a href="#">体験・バイト</a></li></ul></div>
+            <div><h6>Web集客</h6><ul><li><a href="#">成果報酬集客</a></li></ul></div>
+            <div><h6>新着</h6><ul><li><a href="#">新着情報</a></li></ul></div>
+          </div>
+          <div class="fbottom"><span>© 株式会社ウェブグロース</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="sp-frame">
+      <p class="dev-cap">スマホ</p>
+      <div class="frame"><div class="notch"></div><div class="site-nav"><img class="nav-logo" src="images/logo.png" alt="" style="height:22px"><span class="burger"><i></i><i></i><i></i></span></div>
+        <div class="sect-block" style="text-align:center"><span class="sect-label">案内</span><div class="hb sm" style="width:60%;margin:0 auto 10px"></div><p class="sect-text">外部フォームへ移動します。</p></div>
+        <div class="sect-block accent-bg" style="text-align:center;padding:18px 16px"><a class="btn-wg ext" href="#" style="width:100%">フォームを開く ↗</a><p class="sect-muted" style="margin-top:6px">別タブで開きます</p></div>
+        <div class="sect-block"><span class="sect-label">連絡先</span><div class="stack"><div class="ph" style="height:30px">電話</div><div class="ph" style="height:30px">受付時間</div></div></div>
+      </div>
+    </div>
+    <div class="notes-col"><p class="notes-cap">制作メモ・注記</p>
+      <div class="anno dec"><span class="pin">1</span><b>クライアント決定 ／ フォーム</b>お問い合わせは外部のFormzuフォームを使用。</div>
+      <div class="anno tip"><span class="pin">2</span><b>制作提案 ／ 明示</b>外部サイトへ移動することが分かる表示に。新しいタブで開くか方針を統一。</div>
+    </div>
+  </div>
+</div>
+
+<div style="padding:40px var(--edge);max-width:1200px;margin:0 auto;text-align:center">
+  <p style="font-size:12px;color:var(--color-neutral-500)">Rev. 2026-07-16 ｜ Industry Design System ｜ 株式会社ウェブグロース Webサイトリニューアル ハイファイ デザインカンプ</p>
+</div>
+
+</body>
+</html>
