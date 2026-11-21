@@ -55,6 +55,7 @@ assets/                    ← 写真の原本
 | 10 | 対応エリア | `pages/10_area/` | デザイン案あり（WordPress貼り付け用 `area_wp-block.html` あり） |
 | 11 | よくある質問 | `pages/11_faq/` | デザイン案あり（WordPress貼り付け用 `faq_wp-block.html` あり） |
 | 12 | お問い合わせ | `pages/12_contact/` | デザイン案あり（WordPress貼り付け用 `contact_wp-block.html` あり） |
+| 13 | パートナー募集 | `pages/13_partner/` | デザイン案あり（WordPress貼り付け用 `partner_wp-block.html` あり） |
 
 各ページの中身は `docs/02_デザイン指示書_ClaudeDesign.md` の「4. 下層ページ」を参照してください。
 
