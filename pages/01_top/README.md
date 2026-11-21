@@ -7,7 +7,7 @@ Claude Designで作ったトップページのデザイン案を、そのまま�
 
 ## 確認方法
 - ローカル：`index.html` をブラウザで開く
-- GitHub Pages：Settings → Pages で `main` ブランチのルートを公開すると、URLで共有できます
+- GitHub Pages：公開する場合は `pages/01_top/index.html` のURLで見られます（リポジトリ直下の README を参照）
 
 ## 注意
 - デザイン確認用の見本です（検索エンジンに載らないよう `noindex` を入れています）
