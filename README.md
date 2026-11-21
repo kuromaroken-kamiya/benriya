@@ -51,7 +51,7 @@ assets/                    ← 写真の原本
 | 06 | 便利屋・運送・解体 | `pages/06_benriya-unso-kaitai/` | 未着手 |
 | 07 | 法人のお客様 | `pages/07_houjin/` | 未着手 |
 | 08 | 料金 | `pages/08_ryoukin/` | 未着手 |
-| 09 | 会社概要・代表あいさつ | `pages/09_company/` | 未着手 |
+| 09 | 店舗概要・代表あいさつ | `pages/09_company/` | デザイン案あり（WordPress貼り付け用 `company_wp-block.html` あり） |
 | 10 | 対応エリア | `pages/10_area/` | 未着手 |
 | 11 | よくある質問 | `pages/11_faq/` | 未着手 |
 | 12 | お問い合わせ | `pages/12_contact/` | デザイン案あり（WordPress貼り付け用 `contact_wp-block.html` あり） |
