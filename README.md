@@ -54,7 +54,7 @@ assets/                    ← 写真の原本
 | 09 | 会社概要・代表あいさつ | `pages/09_company/` | 未着手 |
 | 10 | 対応エリア | `pages/10_area/` | 未着手 |
 | 11 | よくある質問 | `pages/11_faq/` | 未着手 |
-| 12 | お問い合わせ | `pages/12_contact/` | 未着手 |
+| 12 | お問い合わせ | `pages/12_contact/` | デザイン案あり（WordPress貼り付け用 `contact_wp-block.html` あり） |
 
 各ページの中身は `docs/02_デザイン指示書_ClaudeDesign.md` の「4. 下層ページ」を参照してください。
 
