@@ -17,6 +17,7 @@ docs/                      ← 調査・指示書・プロンプト
   01_競合調査と追記事項.md
   02_デザイン指示書_ClaudeDesign.md
   03_ClaudeDesign用プロンプト.md
+  04_トップページ_改善点.md
 pages/                     ← Claude Design で作ったページのデザイン案（1ページ1フォルダ）
   01_top/                  ← トップページ
     index.html             ← ブラウザで開くとそのまま見られる
