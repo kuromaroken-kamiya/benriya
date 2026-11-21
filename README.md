@@ -28,6 +28,7 @@ docs/                      ← 調査・指示書・プロンプト
   04_トップページ_改善点.md
   05_口コミ調査.md
   06_トップページ修正依頼プロンプト.md
+wordpress/                 ← WordPress の固定ページに貼るファイル一式と実装手順（wordpress/README.md）
 pages/                     ← Claude Design で作ったページのデザイン案（1ページ1フォルダ）
   01_top/                  ← トップページ
     index.html             ← ブラウザで開くとそのまま見られる
